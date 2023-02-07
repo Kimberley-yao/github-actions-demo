@@ -14,12 +14,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.update({
-              ...context.repo,
-              issue_number: context.issue.number,
-              state: 'closed'
-            })
-
             github.issues.createComment({
               ...context.repo,
               issue_number: context.issue.number,
