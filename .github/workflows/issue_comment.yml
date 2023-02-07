@@ -1,20 +1,14 @@
-name: issue-opened
-
-on:
-  issues:
-    types: [opened]
+name: Thank Contributor
+on: pull_request_target
 
 jobs:
-  debug:
+  thank_contributor:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, 'Update APK')
     steps:
-      - name: Close issue
-        uses: actions/github-script@0.8.0
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
         with:
-          script: |
-            github.issues.createComment({
-              ...context.repo,
-              issue_number: context.issue.number,
-              body: 'Close this!'
-            });
+          message: |
+                        Thank you for your contribution. We aim to review it within 48 hours!
+          comment_includes: "Thank you"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
