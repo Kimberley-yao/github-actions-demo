@@ -1,23 +1,27 @@
-name: Create a comment on new issues
+name: issue-opened
 
 on:
   issues:
     types: [opened]
-jobs:
-  comment-with-action:
-    runs-on: ubuntu-latest
-    steps:
-      - name: "dump github context"
-        run: echo "hi kimberley"
-        shell: bash
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: 15
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown** :sparkles:
-            - Created by [create-or-update-comment][1]
 
-            [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.title, 'Update APK')
+    steps:
+      - name: Close issue
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.update({
+              ...context.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            })
+
+            github.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: 'Close this!'
+            });
