@@ -1,14 +1,24 @@
-name: Thank Contributor
-on: pull_request_target
+name: Create a comment on new issue
+
+on:
+  issues:
+    types: [opened]
 
 jobs:
-  thank_contributor:
+  comment-with-action:
     runs-on: ubuntu-latest
     steps:
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v1
+      - name: "dump github context"
+        run: echo "hi kim"
+        shell: bash
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
         with:
-          message: |
-                        Thank you for your contribution. We aim to review it within 48 hours!
-          comment_includes: "Thank you"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            This is a multi-line test comment
+            - With GitHub **Markdown** :sparkles:
+            - Created by [create-or-update-comment][1]
+
+            [1]: https://github.com/peter-evans/create-or-update-comment
+          reactions: '+1'
