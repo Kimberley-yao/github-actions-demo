@@ -11,11 +11,5 @@ jobs:
     steps:
     - uses: ben-z/actions-comment-on-issue@1.0.2
       with:
-        issue-number: ${{ github.event.issue.number }}
-        body: |
-          This is a multi-line test comment
-          - With GitHub **Markdown** :sparkles:
-          - Created by [create-or-update-comment][1]
-
-          [1]: https://github.com/peter-evans/create-or-update-comment
-        reactions: '+1'
+        message: "Gentle reminder:\n* Did you go through all of the troubleshooting steps outlined in README.md?"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
