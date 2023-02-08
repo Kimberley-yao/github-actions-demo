@@ -7,7 +7,7 @@ jobs:
   get-repository-with-checkout-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: peter-evans/create-or-update-comment@v2
       - name: dump Github context
         run: echo ${{ github.event.repository.name }}
         shell: bash
