@@ -1,0 +1,13 @@
+name: Test Github Checkout Repository
+
+on:
+  push:
+
+jobs:
+  get-repository-with-checkout-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "dump Github context"
+      - uses: actions/checkout@v3
+        run: echo ${{ github.event.repository.name }}
+        shell: bash
