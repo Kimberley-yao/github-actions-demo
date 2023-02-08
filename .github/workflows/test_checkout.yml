@@ -7,6 +7,10 @@ jobs:
   get-repository-with-checkout-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: dump Github context
-        run: echo ${{ github.event.repository.name }}
-        shell: bash
+      - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push    steps:
